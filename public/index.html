@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ $title ?? '' }} | Mooi.lloons</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <section id="products-create">
+        <form action="#" method="post">
+            <h3 class="title">{{ $titles }}</h3>
+            @if (!$sts)
+            @method('patch')
+            @endif
+            @csrf
+            <div class="input-img ">
+                <div class="input-image">
+                    <img src="{{ asset('storage/' . $project->image1) }}" alt="" class="img-preview">
+                    <input type="file" name="image1" id="image1" class="inputImage">
+                    <label for="image1" class="image">Image</label>
+                </div>
+                <div class="input-image">
+                    <img src="{{ asset('storage/' . $project->image2) }}" alt="" class="img-preview">
+                    <input type="file" name="image2" id="image2" class="inputImage">
+                    <label for="image2" class="image">Image</label>
+                </div>
+                <div class="input-image">
+                    <img src="{{ asset('storage/' . $project->image3) }}" alt="" class="img-preview">
+                    <input type="file" name="image3" id="image3" class="inputImage">
+                    <label for="image3" class="image">Image</label>
+                </div>
+                <div class="input-image">
+                    <img src="{{ asset('storage/' . $project->image4) }}" alt="" class="img-preview">
+                    <input type="file" name="image4" id="image4" class="inputImage">
+                    <label for="image4" class="image">Image</label>
+                </div>
+                <div class="input-image">
+                    <img src="{{ asset('storage/' . $project->image5) }}" alt="" class="img-preview">
+                    <input type="file" name="image5" id="image5" class="inputImage">
+                    <label for="image5" class="image">Image</label>
+                </div>
+            </div>
+            <div class="input-box">
+                <div class="input">
+                    <label for="title">Title</label>
+                    <input required type="text" name="title" id="title" value="{{ old('title', $project->title) }}">
+                </div>
+                @error('title')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="input-box">
+                <div class="input">
+                    <label for="slug">Slug</label>
+                    <input required type="text" name="slug" id="slug" value="{{ old('slug', $project->slug) }}"
+                        readonly>
+                </div>
+                @error('slug')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="input-box variations">
+                <div class="add">
+                    <i class="bx bx-plus"></i> Tambah Variasi
+                </div>
+                <div class="variation">
+                    <div class="nama input">
+                        <label for="nama">Nama Variasi</label>
+                        <input type="text" name="nama" id="nama">
+                    </div>
+                    <div class="jumlah input">
+                        <label for="jumlah">Jumlah Variasi</label>
+                        <input type="number" name="jumlah" id="jumlah">
+                    </div>
+                    <div class="categories">
+                        <input type="radio" name="category" id="category1" value="">
+                        <label for="category1">Balon Panjang</label>
+                        <input type="radio" name="category" id="category2" value="">
+                        <label for="category2">balon Bulat</label>
+                    </div>
+                    <div class="delete"><i class="bx bx-trash"></i></div>
+                </div>
+                <div class="variation">
+                    <div class="nama input">
+                        <label for="nama">Nama Variasi</label>
+                        <input type="text" name="nama" id="nama">
+                    </div>
+                    <div class="jumlah input">
+                        <label for="jumlah">Jumlah Variasi</label>
+                        <input type="number" name="jumlah" id="jumlah">
+                    </div>
+                    <div class="categories">
+                        <input type="radio" name="category" id="category1" value="">
+                        <label for="category1">Balon Panjang</label>
+                        <input type="radio" name="category" id="category2" value="">
+                        <label for="category2">balon Bulat</label>
+                    </div>
+                    <div class="delete"><i class="bx bx-trash"></i></div>
+                </div>
+            </div>
+            <div class="input-box">
+                <div class="input">
+                    <label for="body">Body</label>
+                    <input id="body" type="hidden" name="body" value="{{ old('body', $project->body) }}">
+                </div>
+                @error('body')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
+                <trix-editor input="body"></trix-editor>
+            </div>
+            <button type="submit">{{ $button }}</button>
+        </form>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Tambahkan elemen saat tombol "Add" diklik
+            $('.add').click(function () {
+                var newElement = `
+                        <div class="variation">
+                            <div class="nama input">
+                                <label for="nama">Nama Variasi</label>
+                                <input type="text" name="nama" id="nama">
+                            </div>
+                            <div class="jumlah input">
+                                <label for="jumlah">Jumlah Variasi</label>
+                                <input type="number" name="jumlah" id="jumlah">
+                            </div>
+                            <div class="categories">
+                                <input type="radio" name="category" id="category1" value="">
+                                <label for="category1">Balon Panjang</label>
+                                <input type="radio" name="category" id="category2" value="">
+                                <label for="category2">balon Bulat</label>
+                            </div>
+                            <div class="delete"><i class="bx bx-trash"></i></div>
+                        </div>`;
+                $('.variations').append(newElement);
+            });
+
+            // Hapus elemen saat tombol "Delete" diklik
+            $('.delete').click(function () {
+                $(this).parent('.variation').remove();
+            });
+
+            $('.inputImage').change(function () {
+                var input = $(this);
+                var img = input.siblings('.img-preview');
+                var label = input.siblings('label');
+
+                if (input.val()) {
+                    img.addClass('show');
+                    label.addClass('hide');
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        img.attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input[0].files[0]);
+                } else {
+                    img.removeClass('show');
+                    label.removeClass('hide');
+                    img.attr('src', '');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
