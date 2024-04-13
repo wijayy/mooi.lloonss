@@ -17,10 +17,11 @@ class ProductVariationFactory extends Factory
     public function definition(): array
     {
         $angka = mt_rand(1, 20);
-        $huruf = fake()->randomLetter();
+        $huruf1 = fake()->randomLetter();
+        $huruf2 = fake()->randomLetter();
         return [
-            "nama" => "balon $huruf $angka",
-            "slug" => "balon-$huruf-$angka",
+            "nama" => "balon $huruf1 $huruf2 $angka",
+            "slug" => "balon-$huruf1 $huruf2-$angka",
             "stock_category_id" => mt_rand(1, 2),
             "jumlah" => mt_rand(2, 5),
             "product_id" => mt_rand(1, 20),

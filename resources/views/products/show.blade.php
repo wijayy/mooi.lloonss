@@ -25,9 +25,6 @@
                     @csrf
                     <input type="number" name="jumlah" id="jumlah" value="1">
                     @foreach ($product->variations as $variation)
-                        @php
-                            $first = true;
-                        @endphp
                         <h4>{{ $variation->nama }}</h4>
                         <div class="variasi">
                             @foreach ($variation->stock_category->stocks as $stock)

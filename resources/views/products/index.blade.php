@@ -1,27 +1,29 @@
 @extends('layout.main')
 
 @section('container')
-    <section id="product-index">
-        <h2 class="title">{{ $title }}</h2>
-        <div class="box">
+    <x-thin-header>All Products</x-thin-header>
+    <x-section id="product-index" class="">
+        {{-- <h2 class="">{{ $title }}</h2> --}}
+        <div class="grid grid-cols-2 gap-4 mt-12 md:grid-cols-3 lg:grid-cols-4">
             @foreach ($products as $product)
-                <a class="cell" href="/products/{{ $product->slug }}">
-                    <img src="{{ asset('storage/' . $product->image1) }}" alt="" />
+                <a class=" rounded-lg transition-all duration-300 hover:scale-[1.02] border"
+                    href="/products/{{ $product->slug }}">
+                    <img src="{{ asset('storage/' . $product->image1) }}" alt="" class="w-full rounded-lg" />
                     <div class="des">
-                        <span>{{ $product->category->nama }}</span>
-                        <h5>{{ $product->nama }}</h5>
-                        <h4>{{ $product->harga }}</h4>
+                        <h5 class="p-4 text-xl ">{{ $product->nama }}</h5>
+                        <h4 class="px-4 pb-2 text-lg text-sky-500">{{ $product->harga }}</h4>
+                        <div class="flex flex-wrap gap-1 px-4 pb-2">
+                            @foreach ($product->variations as $variation)
+                                <img class="rounded-full size-4"
+                                    src="{{ asset('storage/color/' . $loop->iteration % 10 . '.png') }}" alt="">
+                            @endforeach
+                        </div>
                     </div>
-                    <form action="" method="post">
-                        <input type="hidden" name="user" value="" />
-                        <input type="hidden" name="product" value="" />
-                        <button type="submit"><i class="bx bx-cart-alt cart"></i></button>
-                    </form>
                 </a>
             @endforeach
         </div>
-        <div class="page">
+        <div class="flex justify-center pt-8 ">
             {{ $products->links() }}
         </div>
-    </section>
+    </x-section>
 @endsection

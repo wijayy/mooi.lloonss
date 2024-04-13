@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(20)->create();
 
-        ProductVariation::factory(100)->create();
+        ProductVariation::factory(80)->create();
 
         foreach ($pengiriman as $peng) {
             Delivery::factory()->create([
