@@ -48,7 +48,6 @@ class Product extends Model
     {
         $query->when($filters ?? false, function ($query, $search) {
             return $query->where("nama", "like", "%" . $search . "%");
-            // ->orWhere("harga", "<=", $search);
         });
     }
 
@@ -60,6 +59,8 @@ class Product extends Model
             });
         });
     }
+
+
 
     public function sluggable(): array
     {

@@ -11,7 +11,7 @@
             <!-- Links -->
             <div class="items-center hidden space-x-6 lg:flex">
                 <template x-for="link in links">
-                    <a :href="link" class="capitalize text-inherit" x-text="link"></a>
+                    <a :href="'/' + link" class="capitalize text-inherit" x-text="link"></a>
                 </template>
             </div>
             <!-- Searchbar and Menu Button -->
@@ -47,7 +47,7 @@
     <div x-show="isOpen" class="py-2 transition-all duration-300 lg:hidden"
         :class="{ 'bg-transparent text-black shadow-md': !scrolled, 'bg-sky-400 text-white': scrolled }">
         <template x-for="link in links">
-            <a :href="link" class="block py-2 capitalize text-inherit px-7p" x-text="link"></a>
+            <a :href="'/' + link" class="block py-2 capitalize text-inherit px-7p" x-text="link"></a>
         </template>
 
     </div>

@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Delivery;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\StockCategory;
 use App\Models\DeliveryOption;
 use App\Models\ProductCategory;
 use App\Models\ProductVariation;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
@@ -81,7 +84,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        return $request;
         $validateProduct = $request->validate([
             // 'id' => 'required',
             'nama' => 'required|max:255',
@@ -131,11 +134,16 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $temp = User::make([
+            'id' => mt_rand(1, 10),
+        ]);
         // return $product;
         return view("products.show", [
             "product" => $product,
             "title" => $product->nama,
             "categories" => ProductCategory::all(),
+            "user" => $temp,
+            "products" => Product::latest()->category($product->category->slug)->take(4)->whereNotIn('id', [$product->id])->get(),
         ]);
     }
 

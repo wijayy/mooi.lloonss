@@ -12,7 +12,7 @@
                     <div class="des">
                         <h5 class="p-4 text-xl ">{{ $product->nama }}</h5>
                         <h4 class="px-4 pb-2 text-lg text-sky-500">{{ $product->harga }}</h4>
-                        <div class="flex flex-wrap gap-1 px-4 pb-2">
+                        <div class="flex flex-wrap gap-1 px-4 pb-2 align-middle">
                             @foreach ($product->variations as $variation)
                                 <img class="rounded-full size-4"
                                     src="{{ asset('storage/color/' . $loop->iteration % 10 . '.png') }}" alt="">
@@ -22,7 +22,7 @@
                 </a>
             @endforeach
         </div>
-        <div class="flex justify-center pt-8 ">
+        <div class="flex justify-center py-8 ">
             {{ $products->links() }}
         </div>
     </x-section>

@@ -5,8 +5,8 @@
 @endsection
 
 @section('container')
-    <section id="products-create">
-        <h3 class="title">{{ $title }}</h3>
+    <x-section id="products-create">
+        <x-title class="">{{ $title }}</x-title>
         <form action="{{ $action }}" method="post" enctype="multipart/form-data">
             @if (!$sts)
                 @method('patch')
@@ -133,7 +133,7 @@
             </div>
             <button type="submit">{{ $button }}</button>
         </form>
-    </section>
+    </x-section>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -147,102 +147,4 @@
 
 @section('script')
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('body').addClass("create-products");
-            // $('body').on('change', "#nama", slug("products-slug"));
-            document.querySelector('#nama').onchage = slug("products-slug");
-            var count = 1;
-            check();
-            var counts = $('.variation').length;
-
-            function check() {
-                count = $('.variation').length;
-                console.log(count);
-                if (count === 1) {
-                    $('.delete').fadeOut(300);
-                } else if (count > 1) {
-                    $('.delete').fadeIn(300);
-                }
-            }
-
-            // Tambahkan elemen saat tombol "Add" diklik
-            $('form').on('click', '.add', function() {
-
-                var newElement = `
-                <div class="variation">
-                        <div class="nama input">
-                            <label for="nama${counts}">Nama Variasi</label>
-                            <input required type="text" name="variations[${counts}][nama]"
-                                 id="nama${counts}">
-                            @error('variations[${counts}][nama]')
-                                <div class="error">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        {{-- </div> --}}
-
-                        <div class="jumlah input">
-                            <label for="jumlah${counts}">Jumlah Variasi</label>
-                            <input required type="number" name="variations[${counts}][jumlah]"
-                                id="jumlah${counts}" >
-                            @error('variations[${counts}][jumlah]')
-                                <div class="error">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="categories">
-                            <div class="title">Kategori Stok :</div>
-                            @foreach ($stockCategories as $category)
-                                <input type="radio" name="variations[${counts}][category]"
-                                    id="category${counts}{{ $loop->iteration }}"
-                                    value="{{ $category->id }}" required>
-                                <label
-                                    for="category${counts}{{ $loop->iteration }}">{{ $category->nama }}</label>
-                                @error('variations[${counts}][category]')
-                                    <div class="error">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            @endforeach
-                        </div>
-                        <div class="delete"><i class="bx bx-trash"></i></div>
-                    </div>
-                `;
-                // newElement.hide();
-                $('.variations').append(newElement);
-                // newElement.fadeIn(300);
-                check();
-                counts++;
-            });
-
-            // Hapus elemen saat tombol "Delete" diklik
-            $('form').on('click', '.delete', function() {
-                $(this).parent('.variation').remove();
-                check();
-            });
-
-            $('.inputImage').change(function() {
-                var input = $(this);
-                var img = input.siblings('.img-preview');
-                var label = input.siblings('label');
-
-                if (input.val()) {
-                    img.addClass('show');
-                    label.addClass('hide');
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        img.attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input[0].files[0]);
-                } else {
-                    img.removeClass('show');
-                    label.removeClass('hide');
-                    img.attr('src', '');
-                }
-            });
-        });
-    </script>
 @endsection
